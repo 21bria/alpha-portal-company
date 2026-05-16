@@ -1,0 +1,139 @@
+<template>
+  <main class="relative min-h-screen overflow-hidden bg-white px-6 pt-36 pb-24 text-black">
+    <!-- soft background glow -->
+    <div
+      class="absolute inset-0 bg-[radial-gradient(circle_at_85%_18%,rgba(16,185,129,0.10),transparent_28%)]"
+    />
+
+    <div class="relative mx-auto grid max-w-7xl gap-16 lg:grid-cols-[240px_minmax(0,1fr)]">
+      <SustainabilitySidebar />
+
+      <section class="px-0 lg:px-10">
+        <!-- <p class="text-xs font-semibold uppercase tracking-[0.35em] text-amber-600">
+          Sustainability
+        </p> -->
+
+        <h1
+          class="mt-4 bg-gradient-to-r from-emerald-400 via-lime-300 to-cyan-400 bg-clip-text text-3xl font-black tracking-tight text-transparent md:text-4xl"
+        >
+          ESG Commitment
+        </h1>
+
+        <div class="mt-8 max-w-4xl space-y-7 text-lg leading-relaxed text-zinc-600">
+          <p>
+            PT Karya Wijaya is committed to responsible nickel mining operations
+            through disciplined environmental management, operational governance,
+            safety awareness, and long-term community value creation.
+          </p>
+
+          <p>
+            Our ESG approach is built around practical implementation across the
+            mining value chain, from site planning and production activities to
+            stockpile management, logistics coordination, environmental monitoring,
+            and stakeholder engagement.
+          </p>
+
+          <p>
+            By combining operational discipline with digital visibility, we aim to
+            strengthen transparency, accountability, and sustainability performance
+            across our mining ecosystem.
+          </p>
+        </div>
+
+        <!-- image -->
+        <div class="mt-12 overflow-hidden rounded-[1rem]">
+          <img
+            src="/images/female-esg.png"
+            alt="ESG Commitment"
+            class="aspect-[16/9] w-full object-cover md:h-[360px] md:aspect-auto"
+          />
+        </div>
+
+        <!-- ESG pillars -->
+        <div class="mt-16 grid gap-6 md:grid-cols-3">
+          <div
+            v-for="item in pillars"
+            :key="item.title"
+            class="rounded-[1.5rem] border border-zinc-200 bg-zinc-50 p-6 transition-all duration-500 hover:-translate-y-1 hover:border-emerald-300/50 hover:shadow-[0_0_35px_rgba(16,185,129,0.10)]"
+          >
+            <p class="text-xs font-semibold uppercase tracking-[0.25em] text-emerald-500">
+              {{ item.label }}
+            </p>
+
+            <h3 class="mt-4 text-xl font-bold text-zinc-900">
+              {{ item.title }}
+            </h3>
+
+            <p class="mt-4 text-sm leading-relaxed text-zinc-600">
+              {{ item.description }}
+            </p>
+          </div>
+        </div>
+
+        <!-- approach -->
+        <div class="mt-20">
+          <h2 class="text-2xl font-bold text-zinc-900">
+            Our ESG Approach
+          </h2>
+
+          <div class="mt-8 space-y-5">
+            <div
+              v-for="point in approaches"
+              :key="point.title"
+              class="border-l-2 border-emerald-400 pl-5"
+            >
+              <h3 class="text-lg font-semibold text-zinc-900">
+                {{ point.title }}
+              </h3>
+
+              <p class="mt-2 leading-relaxed text-zinc-600">
+                {{ point.description }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</template>
+
+<script setup lang="ts">
+const pillars = [
+  {
+    label: 'Environment',
+    title: 'Responsible Resource Management',
+    description:
+      'Managing mining activities with attention to land use, environmental monitoring, rehabilitation planning, and operational compliance.',
+  },
+  {
+    label: 'Social',
+    title: 'Community & Workforce Engagement',
+    description:
+      'Supporting local engagement, workforce development, safety awareness, and positive relationships with surrounding communities.',
+  },
+  {
+    label: 'Governance',
+    title: 'Transparent Operational Governance',
+    description:
+      'Strengthening accountability through structured reporting, disciplined decision-making, and integrated operational monitoring.',
+  },
+]
+
+const approaches = [
+  {
+    title: 'Operational Accountability',
+    description:
+      'We promote clear responsibility across mining, logistics, stockpile, quality, and reporting activities to support reliable operational execution.',
+  },
+  {
+    title: 'Digital Visibility',
+    description:
+      'Integrated systems help improve visibility across production, ore movement, stockpile readiness, and operational performance.',
+  },
+  {
+    title: 'Long-Term Sustainability',
+    description:
+      'Our sustainability approach focuses on responsible mining practices, stakeholder trust, and continuous improvement across operational areas.',
+  },
+]
+</script>

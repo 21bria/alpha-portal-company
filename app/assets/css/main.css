@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #050505;
+  color: #ffffff;
+  font-family: Inter, sans-serif;
+}
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-18px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 40s linear infinite;
+}
+
+@keyframes orbitSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-orbit {
+  animation: orbitSpin 28s linear infinite;
+}
+
+.animate-spin-orbit-reverse {
+  animation: orbitSpin 40s linear infinite reverse;
+}
+
+@keyframes orbitSpinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-orbit-slow {
+  animation: orbitSpinSlow 70s linear infinite;
+}

@@ -1,0 +1,139 @@
+<template>
+    <section class="relative overflow-hidden bg-black px-6 py-20 text-white">
+        <!-- glow -->
+        <div
+            class="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(34,211,238,0.08),transparent_25%),radial-gradient(circle_at_80%_50%,rgba(245,158,11,0.10),transparent_30%)]" />
+
+        <!-- grid -->
+        <div
+            class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:80px_80px]" />
+
+        <div class="relative mx-auto max-w-7xl">
+            <!-- top -->
+            <div class="grid items-center gap-16 lg:grid-cols-2">
+                <!-- left -->
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-[0.35em] text-emerald-300">
+                        Sustainability & ESG
+                    </p>
+
+                    <h2 class="mt-5 text-4xl font-bold leading-tight tracking-tight md:text-5xl">
+                        Responsible mining for a
+                        <span class="text-amber-300">
+                            sustainable energy future.
+                        </span>
+                    </h2>
+
+                    <p class="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-400">
+                        We are committed to operational excellence through environmental
+                        responsibility, community empowerment, and sustainable mining
+                        practices that support long-term energy transition goals.
+                    </p>
+
+                    <div class="mt-10 flex flex-wrap gap-4">
+                        <button
+                            class="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-6 py-3 text-sm font-semibold text-emerald-300 backdrop-blur transition hover:bg-emerald-400 hover:text-black">
+                            ESG Report
+                        </button>
+
+                        <button
+                            class="rounded-full border border-white/10 bg-white/[0.03] px-6 py-3 text-sm font-semibold text-white transition hover:border-amber-300/30 hover:bg-white/[0.06]">
+                            Sustainability Strategy
+                        </button>
+                    </div>
+                </div>
+
+                <!-- right -->
+                <div class="relative">
+                    <div class="absolute inset-0 rounded-[2rem] bg-emerald-400/10 blur-3xl" />
+
+                    <div
+                        class="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03] p-8 backdrop-blur">
+                        <div class="grid gap-6 sm:grid-cols-2">
+                            <div v-for="item in metrics" :key="item.title"
+                                class="rounded-3xl border border-white/10 bg-black/30 p-6">
+                                <p class="text-sm uppercase tracking-[0.25em] text-zinc-500">
+                                    {{ item.title }}
+                                </p>
+
+                                <h3 class="mt-4 text-4xl font-bold text-white">
+                                    {{ item.value }}
+                                </h3>
+
+                                <p class="mt-3 text-sm leading-relaxed text-zinc-400">
+                                    {{ item.description }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- bottom cards -->
+            <div class="mt-24 grid gap-8 md:grid-cols-3">
+                <div v-for="item in esgItems" :key="item.title"
+                    class="group rounded-[2rem] border border-white/10 bg-white/[0.03] p-8 transition-all duration-500 hover:border-amber-300/20 hover:bg-white/[0.05] hover:shadow-[0_0_40px_rgba(245,158,11,0.10)]">
+                    <div
+                        class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-black/40 text-2xl">
+                        {{ item.icon }}
+                    </div>
+
+                    <h3 class="text-2xl font-semibold text-white">
+                        {{ item.title }}
+                    </h3>
+
+                    <p class="mt-4 text-sm leading-relaxed text-zinc-400">
+                        {{ item.description }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</template>
+
+<script setup lang="ts">
+const metrics = [
+    {
+        title: 'Operational Sites',
+        value: '03',
+        description: 'Integrated mining and logistics operation areas.',
+    },
+    {
+        title: 'ESG Programs',
+        value: '12+',
+        description: 'Community and sustainability initiatives in progress.',
+    },
+    {
+        title: 'Digital Monitoring',
+        value: '24/7',
+        description: 'Real-time operational and environmental visibility.',
+    },
+    {
+        title: 'Downstream Support',
+        value: '2026',
+        description:
+            'Supporting integrated nickel supply for industrial processing operations.',
+    },
+]
+
+const esgItems = [
+    {
+        icon: '🌱',
+        title: 'Environmental Responsibility',
+        description:
+            'Continuous monitoring and responsible resource management across mining operations.',
+    },
+    {
+        icon: '🤝',
+        title: 'Community Development',
+        description:
+            'Supporting local communities through sustainable growth and empowerment programs.',
+    },
+    {
+        icon: '⚡',
+        title: 'Reliable Nickel Resources',
+        description:
+            'Delivering operational consistency and sustainable nickel supply for downstream industries.',
+    },
+]
+</script>

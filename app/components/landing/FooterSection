@@ -1,0 +1,140 @@
+<template>
+    <footer class="relative overflow-hidden border-t border-white/10 bg-black">
+        <!-- glow -->
+        <div
+            class="absolute inset-0 bg-[radial-gradient(circle_at_40%_20%,rgba(245,158,11,0.08),transparent_25%),radial-gradient(circle_at_60%_30%,rgba(34,211,238,0.06),transparent_25%)]" />
+
+        <!-- grid -->
+        <div
+            class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:80px_80px]" />
+
+        <div class="relative mx-auto max-w-7xl px-6 py-20">
+            <div class="grid gap-14 md:grid-cols-2 lg:grid-cols-5">
+                <!-- BRAND -->
+                <div class="lg:col-span-2">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="h-10 w-10 rounded-xl border border-amber-300/20 bg-gradient-to-br from-amber-300/20 to-cyan-400/10" />
+                        <h2 class="text-lg font-semibold tracking-[0.25em] text-zinc-100">
+                            KARYA WIJAYA
+                        </h2>
+                    </div>
+
+                    <p class="mt-6 max-w-md text-sm leading-relaxed text-zinc-500">
+                        Integrated digital mining ecosystem.
+                    </p>
+
+                    <!-- socials -->
+                    <div class="mt-16 flex items-center gap-4">
+                        <a href="#"
+                            class="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-zinc-400 transition hover:border-amber-300/30 hover:text-white">
+                            X
+                        </a>
+
+                        <a href="#"
+                            class="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-zinc-400 transition hover:border-amber-300/30 hover:text-white">
+                            in
+                        </a>
+
+                        <a href="#"
+                            class="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-zinc-400 transition hover:border-amber-300/30 hover:text-white">
+                            G
+                        </a>
+                    </div>
+                </div>
+
+                <!-- CONTACT -->
+                <div class="lg:col-span-2">
+                    <h3 class="text-sm font-semibold text-zinc-100">
+                        PT KARYA WIJAYA
+                    </h3>
+
+                    <div class="mt-2 space-y-3 text-sm leading-relaxed text-zinc-500">
+                        <p>
+                            Menara Prima Tower 15th Floor
+                            <br>
+                            Kawasan Mega Kuningan
+                            <br>
+                            Jl. DR. Ide Anak Agung Gde Agung Blok 6.2
+                            <br>
+                            Jakarta Selatan
+                        </p>
+
+                        <div class="pt-2 space-y-2">
+                            <p>
+                                T
+                                <a href="tel:+622139525581" class="ml-2 transition hover:text-white">
+                                    +62 21 5794 8028
+                                </a>
+                            </p>
+                            <!-- <p>
+                                F
+                                <span class="ml-2">
+                                    +62 21 3952 5582
+                                </span>
+                            </p> -->
+                            <p>
+                                E
+                                <a href="mailto:admin.jkt@karyawijaya.com" class="ml-2 transition hover:text-white">
+                                    admin.jkt@karyawijaya.com
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PRODUCTS -->
+                <div>
+                    <h3 class="text-sm font-semibold text-zinc-100">
+                        Products
+                    </h3>
+                    <ul class="mt-6 space-y-4 text-sm text-zinc-500">
+                        <li>
+                            <a href="#" class="transition hover:text-white">
+                                ERP Platform
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="transition hover:text-white">
+                                Mining Dashboard
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="transition hover:text-white">
+                                GIS System
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="transition hover:text-white">
+                                Mobile Apps
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            
+            </div>
+
+            <!-- bottom -->
+            <div
+                class="mt-20 flex flex-col items-start justify-between gap-6 border-t border-white/10 pt-8 text-sm text-zinc-600 md:flex-row md:items-center">
+                <p>
+                    Copyright 2026 © All rights reserved. Designed by
+                    <a href="" class="ml-1 font-medium text-amber-600 transition hover:text-amber-400">
+                    Bria Meinardus
+                    </a>
+                </p>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="transition hover:text-white">
+                        Privacy Policy  
+                    </a>
+                    <a href="#" class="transition hover:text-white">
+                        Cookie Policy
+                    </a>
+                    <a href="#" class="transition hover:text-white">
+                        Terms of Service
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</template>

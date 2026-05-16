@@ -1,0 +1,101 @@
+<template>
+    <section class="relative overflow-hidden bg-zinc-50 px-6 py-20 text-black">
+        <!-- background glow -->
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_85%_20%,rgba(245,158,11,0.10),transparent_28%)]" />
+
+        <div class="relative mx-auto max-w-7xl">
+            <!-- heading -->
+            <div class="mb-14">
+                <p class="text-xs font-semibold uppercase tracking-[0.35em] text-amber-500">
+                    Latest News
+                </p>
+
+                <h2 class="mt-4 text-4xl font-bold tracking-tight text-zinc-900">
+                    Mining insights & company updates.
+                </h2>
+
+                <p class="mt-5 max-w-2xl text-zinc-600">
+                    Explore the latest operational updates, sustainability initiatives,
+                    and strategic developments across our integrated nickel ecosystem.
+                </p>
+            </div>
+
+            <!-- news grid -->
+            <div class="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+                <article v-for="news in newsItems" :key="news.title"
+                    class="group overflow-hidden rounded-[2rem] border border-zinc-200 bg-white transition-all duration-500 hover:-translate-y-1 hover:border-amber-300/40 hover:shadow-[0_0_40px_rgba(245,158,11,0.10)]">
+
+                    <!-- image -->
+                    <div class="relative overflow-hidden">
+                        <img :src="news.image" :alt="news.title"
+                            class="h-44 w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                    </div>
+
+                    <!-- content -->
+                    <div class="p-5">
+                        <div class="flex items-center gap-3 text-xs uppercase tracking-[0.25em]">
+                            <span class="font-semibold text-amber-500">
+                                {{ news.category }}
+                            </span>
+
+                            <span class="text-zinc-400">
+                                •
+                            </span>
+
+                            <span class="text-zinc-500">
+                                {{ news.date }}
+                            </span>
+                        </div>
+
+                        <h3
+                            class="mt-2 text-2xl font-semibold leading-snug text-zinc-900 transition group-hover:text-amber-600">
+                            {{ news.title }}
+                        </h3>
+
+                        <p class="mt-2 text-sm leading-relaxed text-zinc-600">
+                            {{ news.description }}
+                        </p>
+
+                        <button
+                            class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-amber-500 transition-all duration-300 group-hover:gap-3">
+                            Read more
+                            <span>→</span>
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+</template>
+
+
+<script setup lang="ts">
+const newsItems = [
+    {
+        title: 'Kawi mining operations continue in Pulau Gebe',
+        description:
+            'Mining and logistics activities continue to support reliable nickel ore operations in North Maluku.',
+        category: 'Mining',
+        date: 'May 12, 2026',
+        image: '/images/female-nickel.jpg',
+    },
+    {
+        title: 'Strengthening ESG initiatives across mining operations',
+        description:
+            'Environmental monitoring and sustainability programs continue to support responsible mining development.',
+        category: 'Sustainability',
+        date: 'May 05, 2026',
+        image: '/images/news-esg.jpg',
+    },
+    {
+        title: 'Digital mining ecosystem integration continues to grow',
+        description:
+            'Integrated systems for production, stockpile, quality, and GIS monitoring improve operational visibility.',
+        category: 'Technology',
+        date: 'April 28, 2026',
+        image: '/images/female-engineer.jpg',
+    },
+]
+</script>

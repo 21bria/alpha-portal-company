@@ -1,0 +1,50 @@
+<template>
+  <main class="min-h-screen bg-zinc-50">
+    <LandingHeader light />
+    <NewsHero />
+
+    <section class="px-6 py-20">
+      <div class="mx-auto max-w-7xl">
+        <NewsFilter />
+
+        <div class="mt-12 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+          <NewsCard v-for="item in newsItems" :key="item.slug" v-bind="item" />
+        </div>
+
+        <NewsPagination />
+      </div>
+    </section>
+  </main>
+</template>
+
+<script setup lang="ts">
+const newsItems = [
+  {
+    slug: 'kawi-mining-operations-pulau-gebe',
+    title: 'Kawi mining operations continue in Pulau Gebe',
+    description:
+      'Mining and logistics activities continue to support reliable nickel ore operations in North Maluku.',
+    category: 'Mining',
+    date: 'May 12, 2026',
+   image: '/images/female-nickel.jpg',
+  },
+  {
+    slug: 'esg-initiatives-mining-operations',
+    title: 'Strengthening ESG initiatives across mining operations',
+    description:
+      'Environmental monitoring and sustainability programs continue to support responsible mining development.',
+    category: 'Sustainability',
+    date: 'May 05, 2026',
+    image: '/images/news-esg.jpg',
+  },
+  {
+    slug: 'digital-mining-ecosystem-growth',
+    title: 'Digital mining ecosystem integration continues to grow',
+    description:
+      'Integrated systems for production, stockpile, quality, and GIS monitoring improve operational visibility.',
+    category: 'Technology',
+    date: 'April 28, 2026',
+    image: '/images/female-engineer.jpg',
+  },
+]
+</script>

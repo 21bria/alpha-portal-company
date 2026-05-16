@@ -1,0 +1,135 @@
+<template>
+    <section class="bg-white px-6 py-24 text-black">
+        <div class="mx-auto max-w-5xl">
+            <NuxtLink to="/news" class="text-sm text-zinc-500 hover:text-amber-600">
+                ← Back to news
+            </NuxtLink>
+
+            <div class="mt-10 grid gap-12 lg:grid-cols-[1fr_240px]">
+                <article>
+                    <div class="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.25em]">
+                        <span class="font-semibold text-amber-500">Mining</span>
+                        <span class="text-zinc-400">•</span>
+                        <span class="text-zinc-500">May 12, 2026</span>
+                        <span class="text-zinc-400">•</span>
+                        <span class="text-zinc-500">3 min read</span>
+                    </div>
+
+                    <h1 class="mt-6 max-w-3xl text-3xl font-black leading-tight tracking-tight md:text-4xl">
+                        Kawi mining operations continue in Pulau Gebe
+                    </h1>
+
+                    <div class="mt-7 max-w-3xl overflow-hidden rounded-[1.5rem]">
+                        <img src="/images/foto-overview.jpg"
+                            alt="Mining operation" class="h-[360px] w-full object-cover" />
+                    </div>
+                    <div
+                        class="prose prose-zinc mt-12 max-w-3xl prose-headings:font-bold prose-h2:text-amber-600 prose-p:text-lg prose-p:leading-relaxed">
+                        <p>
+                            The operational workflow across the Pulau Gebe site continues to focus on
+                            improving coordination between mining activity, stockpile monitoring, ore
+                            movement, and shipment planning.
+                        </p>
+
+                        <p>
+                            Through integrated operational visibility, site teams are able to monitor
+                            production movement more efficiently while supporting long-term operational
+                            reliability and logistics readiness.
+                        </p>
+
+                        <figure class="mt-8 overflow-hidden rounded-2xl">
+                            <img src="/images/molten-metal.jpg"
+                                alt="Nickel mining" class="rounded-[0.5rem]" />
+
+                            <figcaption class="mt-2">
+                                Operational visibility continues to support efficient mining coordination.
+                            </figcaption>
+                        </figure>
+
+                        <h2>Operational Readiness</h2>
+
+                        <p>
+                            Kawi continues to strengthen operational readiness across mining and logistics
+                            activities through structured monitoring, integrated reporting, and
+                            sustainable operational planning.
+                        </p>
+
+                        <p>
+                            Site development initiatives remain focused on supporting reliable ore
+                            handling, production visibility, and operational continuity across the
+                            project area in North Maluku.
+                        </p>
+                    </div>
+
+                    <div class="mt-10 flex flex-wrap gap-3">
+                        <span v-for="tag in tags" :key="tag"
+                            class="rounded-full border border-zinc-200 bg-zinc-50 px-4 py-2 text-sm text-zinc-600">
+                            #{{ tag }}
+                        </span>
+                    </div>
+                </article>
+
+                <aside class="hidden lg:block">
+                    <div class="sticky top-28 rounded-3xl border border-zinc-200 bg-zinc-50 p-5">
+                        <p class="text-sm font-bold text-zinc-900">In this article</p>
+
+                        <div class="mt-5 space-y-3 text-sm text-zinc-500">
+                            <a href="#" class="block hover:text-amber-600">Operational Development</a>
+                            <a href="#" class="block hover:text-amber-600">Integrated Monitoring</a>
+                            <a href="#" class="block hover:text-amber-600">Tags</a>
+                        </div>
+
+                        <div class="mt-8 border-t border-zinc-200 pt-5">
+                            <p class="text-sm font-bold text-zinc-900">Share article</p>
+
+                            <div class="mt-4 flex gap-3">
+                                <button class="h-9 w-9 rounded-full bg-zinc-900 text-xs text-white">X</button>
+                                <button class="h-9 w-9 rounded-full bg-zinc-900 text-xs text-white">in</button>
+                                <button class="h-9 w-9 rounded-full bg-zinc-900 text-xs text-white">↗</button>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+
+            <div class="mt-18 border-t border-zinc-200 pt-10">
+                <h2 class="text-2xl font-bold text-zinc-900">Related posts</h2>
+
+                <div class="mt-8 grid gap-6 md:grid-cols-3">
+                    <NewsCard v-for="item in relatedPosts" :key="item.slug" v-bind="item" />
+                </div>
+            </div>
+        </div>
+    </section>
+</template>
+
+<script setup lang="ts">
+const tags = ['Mining', 'Pulau Gebe', 'Nickel Ore', 'Operations']
+
+const relatedPosts = [
+    {
+        slug: 'esg-initiatives-mining-operations',
+        title: 'Strengthening ESG initiatives across mining operations',
+        description: 'Environmental monitoring and sustainability programs support responsible mining.',
+        category: 'Sustainability',
+        date: 'May 05, 2026',
+        image: 'https://images.unsplash.com/photo-1473448912268-2022ce9509d8?q=80&w=1200&auto=format&fit=crop',
+    },
+    {
+        slug: 'digital-mining-ecosystem-growth',
+        title: 'Digital mining ecosystem integration continues to grow',
+        description: 'Integrated systems improve operational visibility across mining workflows.',
+        category: 'Technology',
+        date: 'April 28, 2026',
+        image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop',
+    },
+    {
+        slug: 'stockpile-readiness-nickel-ore',
+        title: 'Stockpile readiness supports nickel ore logistics',
+        description: 'Stockpile monitoring strengthens operational planning and ore movement.',
+        category: 'Operations',
+        date: 'April 18, 2026',
+        image: 'https://images.unsplash.com/photo-1513828583688-c52646db42da?q=80&w=1200&auto=format&fit=crop',
+    },
+]
+</script>

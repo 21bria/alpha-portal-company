@@ -1,0 +1,35 @@
+<template>
+  <section class="relative px-6 pt-10 pb-20 lg:-mt-35 lg:pb-20">
+        <div class="mx-auto grid max-w-7xl gap-16 lg:grid-cols-2">
+            <!-- LEFT -->
+            <div>
+                <p class="text-sm font-bold uppercase tracking-[0.35em] text-white">
+                    About Us
+                </p>
+
+                <h2 class="mt-10 max-w-3xl text-4xl font-light leading-tight text-white md:text-5xl">
+                    Building an integrated nickel ecosystem for the next generation of energy.
+                </h2>
+            </div>
+
+            <!-- RIGHT -->
+            <div class="flex items-center">
+                <div>
+                    <!-- <p class="max-w-2xl text-xl leading-relaxed text-slate-700"> -->
+                    <p class="max-w-2xl text-base leading-relaxed text-zinc-400 sm:text-lg">
+                        We are focused on delivering reliable nickel resources through advanced mining operations,
+                        digital integration, and sustainable practices.
+                        By combining technology, operational efficiency, and environmental responsibility, we support
+                        the growing global demand for clean energy materials.
+                    </p>
+
+                    <NuxtLink to="/company/about"
+                        class="mt-12 inline-flex items-center gap-3 text-sm font-bold uppercase tracking-[0.2em] text-teal-500 transition hover:text-teal-600">
+                        Learn More
+                        <span>»</span>
+                    </NuxtLink>
+                </div>
+            </div>
+        </div>
+    </section>
+</template>

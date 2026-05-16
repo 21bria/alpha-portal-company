@@ -1,0 +1,28 @@
+{
+  "name": "company-portal",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@tresjs/cientos": "^5.7.0",
+    "@tresjs/core": "^5.8.0",
+    "@vueuse/motion": "^3.0.3",
+    "lucide-vue-next": "^1.0.0",
+    "nuxt": "^4.4.4",
+    "three": "^0.184.0",
+    "vue": "^3.5.33",
+    "vue-router": "^5.0.6"
+  },
+  "packageManager": "pnpm@11.0.8+sha512.4c4097e1dd2d42372c4e7fa5a791ff28fc75a484c7ac192e64b1df0fdef17594ba982f9b4fed9adfb3c757846f565b799b2763fb3733d1de1bcb82cf46684912",
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.2.4",
+    "@types/node": "^25.6.2",
+    "tailwindcss": "^4.2.4"
+  }
+}

@@ -1,0 +1,50 @@
+<template>
+  <main class="min-h-screen bg-white px-6 pt-36 pb-24 text-black">
+    <div class="mx-auto grid max-w-7xl gap-16 lg:grid-cols-[240px_minmax(0,1fr)]">
+      <CompanySidebar />
+
+      <section class="relative overflow-hidden px-10">
+        <h1
+          class="mt-4 bg-gradient-to-r from-emerald-400 via-lime-300 to-cyan-400 bg-clip-text text-3xl font-black tracking-tight text-transparent md:text-4xl">
+          About Us
+        </h1>
+
+        <div class="mt-8 space-y-8 text-lg leading-relaxed text-zinc-600">
+          <p>
+            PT Karya Wijaya is an integrated nickel mining company focused on
+            operational excellence, responsible resource management, and digital
+            mining ecosystem development across Indonesia. Our operations are
+            designed to support reliable ore production, stockpile visibility,
+            logistics coordination, and long-term operational sustainability in
+            the growing nickel industry.
+          </p>
+
+          <p>
+            Through a combination of mining operations, ore movement monitoring,
+            production visibility, and technology-driven systems integration, we
+            continue to strengthen operational efficiency across every stage of
+            the mining workflow. We believe that sustainable operational growth
+            can only be achieved through disciplined coordination, reliable
+            infrastructure, and continuous innovation within the mining sector.
+          </p>
+
+          <p>
+            PT Karya Wijaya also continues to develop an integrated digital
+            mining environment that supports production reporting, stockpile
+            management, quality monitoring, shipment readiness, and operational
+            analytics. By combining operational experience with modern digital
+            systems, we aim to create a more transparent, efficient, and
+            scalable mining ecosystem capable of supporting long-term industrial
+            partnerships and sustainable business growth.
+          </p>
+        </div>
+
+        <!-- image -->
+        <div class="mt-10 overflow-hidden rounded-[1.0rem] md:mt-14 md:rounded-[1.0rem]">
+          <img src="/images/female-nickel.jpg" alt="Karya Wijaya Overview"
+            class="aspect-[16/9] w-full object-cover md:h-[360px] md:aspect-auto" />
+        </div>
+      </section>
+    </div>
+  </main>
+</template>
