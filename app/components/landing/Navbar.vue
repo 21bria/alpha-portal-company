@@ -345,6 +345,6 @@ const menus = [
     { label: 'News', to: '/news' },
     { label: 'Career', to: '/career' },
     // { label: 'Document', to: '/document' },
-    { label: 'Media', to: '/media' },
+    { label: 'Media', to: '/gallery' },
 ]
 </script>
