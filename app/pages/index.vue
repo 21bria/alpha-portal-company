@@ -1,19 +1,14 @@
 <script setup lang="ts">
-const route = useRoute()
 const api = usePublicApi()
 
-const { data: page, pending, error, refresh } = await useAsyncData(
+const { data: page, pending, error } = await useAsyncData(
   "public-home-page",
   () => api.request<any>("/api/public/home/"),
   {
     default: () => null,
-  }
-)
-
-watch(
-  () => route.fullPath,
-  async () => {
-    await refresh()
+    server: true,
+    lazy: false,
+    getCachedData: () => undefined,
   }
 )
 
@@ -26,26 +21,27 @@ function getSection(type: string) {
 
 <template>
   <main class="min-h-screen overflow-hidden bg-black text-white">
-    <div v-if="pending" class="flex min-h-screen items-center justify-center text-white/60">
-      Loading...
-    </div>
+    <LandingHeroSection
+      :section="getSection('hero')"
+    />
 
-    <div v-else-if="error" class="flex min-h-screen items-center justify-center text-red-400">
-      Failed to load page.
-    </div>
+    <LandingAboutSection
+      :section="getSection('split_content')"
+    />
 
-    <template v-else>
-      <LandingHeroSection :section="getSection('hero')" />
+    <LandingOperationalSection
+      :section="getSection('cards')"
+    />
 
-      <LandingAboutSection :section="getSection('split_content')" />
+    <LandingSustainabilitySection
+      :section="getSection('landing_feature')"
+    />
+    <LandingNewsSection />
+    <LandingProjectMapSection
+      :section="getSection('project_location')"
+    />
 
-      <LandingOperationalSection :section="getSection('cards')" />
 
-      <LandingSustainabilitySection :section="getSection('landing_feature')" />
-
-      <LandingNewsSection />
-
-      <LandingProjectMapSection :section="getSection('project_location')" />
-    </template>
   </main>
 </template>
+
