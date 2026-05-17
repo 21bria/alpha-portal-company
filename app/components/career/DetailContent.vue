@@ -159,16 +159,18 @@ const route = useRoute()
 const slug = computed(() => String(route.params.slug || ""))
 
 const { data: job, pending, error } =
-  await useAsyncData(
-    `career-${slug.value}`,
+  await useAsyncData<PublicJobVacancy | null>(
+    () => `career-${slug.value}`,
     () =>
       api.request<PublicJobVacancy>(
         `/api/public/careers/${slug.value}/`
       ),
     {
-      watch: [slug]
+      watch: [slug],
+      default: () => null,
     }
   )
+  
 function formatDate(date?: string | null) {
   if (!date) return "Latest Update"
 

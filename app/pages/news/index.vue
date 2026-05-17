@@ -32,8 +32,6 @@ type ApiList<T> = {
   results: T[]
 }
 
-const config = useRuntimeConfig()
-
 const selectedCategory = ref("all")
 const search = ref("")
 const page = ref(1)
@@ -42,9 +40,11 @@ const pageSize = 9
 
 const { data: categoriesData } = await useAsyncData(
   "news-categories",
-  () => api.request<NewsCategory[]>("/api/public/news/categories/")
+  () => api.request<NewsCategory[]>("/api/public/news/categories/"),
+  {
+    default: () => [],
+  }
 )
-
 const categories = computed<NewsCategory[]>(() => [
   {
     name: "All",
@@ -69,6 +69,10 @@ const { data, pending, error } = await useAsyncData(
     }),
   {
     watch: [page, search, selectedCategory],
+    default: () => ({
+      count: 0,
+      results: [],
+    }),
   }
 )
 
@@ -112,7 +116,7 @@ function getNewsImage(item: PublicNews) {
 </script>
 
 <template>
-   <main v-if="page" class="relative min-h-screen overflow-hidden bg-white pt-10 pb-0 text-black">
+   <main  class="relative min-h-screen overflow-hidden bg-white pt-10 pb-0 text-black">
     <LandingHeader light />
     <NewsHero />
 

@@ -158,6 +158,7 @@
 </template>
 
 <script setup lang="ts">
+const api = usePublicApi()
 type NewsCategory = {
   id: number
   name: string
@@ -187,32 +188,47 @@ type PublicNews = {
 }
 
 const route = useRoute()
-const config = useRuntimeConfig()
 
 const slug = computed(() => String(route.params.slug || ""))
 
-const { data: article, pending, error } = await useFetch<PublicNews>(
-  () => `${config.public.apiBaseUrl}/api/public/news/${slug.value}/`,
-  {
-    watch: [slug],
-  }
-)
+const { data: article, pending, error } =
+  await useAsyncData<PublicNews | null>(
+    () => `public-news-detail-${slug.value}`,
+    () =>
+      api.request<PublicNews>(
+        `/api/public/news/${slug.value}/`
+      ),
+    {
+      watch: [slug],
+      default: () => null,
+    }
+  )
 
 type ApiList<T> = {
   count: number
   results: T[]
 }
 
-const { data: relatedData } = await useFetch<ApiList<PublicNews> | PublicNews[]>(
-  `${config.public.apiBaseUrl}/api/public/news/`,
-  {
-    default: () => ({
-      count: 0,
-      results: [],
-    }),
-  }
-)
-
+const { data: relatedData } =
+  await useAsyncData<ApiList<PublicNews> | PublicNews[]>(
+    "public-news-related",
+    () =>
+      api.request<ApiList<PublicNews> | PublicNews[]>(
+        "/api/public/news/",
+        {
+          query: {
+            page_size: 4,
+          },
+        }
+      ),
+    {
+      default: () => ({
+        count: 0,
+        results: [],
+      }),
+    }
+  )
+  
 const relatedPosts = computed(() => {
   const items = Array.isArray(relatedData.value)
     ? relatedData.value

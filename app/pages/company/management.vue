@@ -1,9 +1,12 @@
 <script setup lang="ts">
 const api = usePublicApi()
 
-const { data: page } = await useAsyncData(
-  "management-page",
-  () => api.request<any>("/api/public/pages/management/")
+const { data: page, pending, error } = await useAsyncData(
+  "public-page-management",
+  () => api.request<any>("/api/public/pages/management/"),
+  {
+    default: () => null,
+  }
 )
 
 const cardsSection = computed(() => {
@@ -25,7 +28,7 @@ const colors = [
 </script>
 
 <template>
-  <main v-if="page" class="relative min-h-screen overflow-hidden bg-white px-6 pt-36 pb-24 text-black">
+  <main class="relative min-h-screen overflow-hidden bg-white px-6 pt-36 pb-24 text-black">
     <div
       class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_85%_20%,rgba(34,197,94,0.10),transparent_28%)]" />
 
@@ -42,25 +45,43 @@ const colors = [
       <CompanySidebar />
 
       <section>
-        <h1 v-if="cardsSection?.title"
-          class="mt-4 bg-gradient-to-r from-emerald-400 via-lime-300 to-cyan-400 bg-clip-text text-3xl font-black tracking-tight text-transparent md:text-4xl">
-          {{ cardsSection.title }}
-        </h1>
+        <div v-if="pending" class="mt-10 text-zinc-500">
+          Loading...
+        </div>
 
-        <div class="mt-14 grid gap-6 md:grid-cols-2">
-          <div v-for="(item, index) in items" :key="item.title"
-            class="rounded-[1.8rem] border border-zinc-200 bg-zinc-50/80 p-7 backdrop-blur">
-            <p class="text-sm font-semibold uppercase tracking-[0.25em]" :class="colors[Number(index)% colors.length]">
-              {{ item.metric }}
-            </p>
+        <div v-else-if="error" class="mt-10 text-red-500">
+          Failed to load page.
+        </div>
 
-            <h3 class="mt-4 text-2xl font-bold text-zinc-900">
-              {{ item.title }}
-            </h3>
+        <div v-else>
+          <h1
+            v-if="cardsSection?.title"
+            class="mt-4 bg-gradient-to-r from-emerald-400 via-lime-300 to-cyan-400 bg-clip-text text-3xl font-black tracking-tight text-transparent md:text-4xl"
+          >
+            {{ cardsSection.title }}
+          </h1>
 
-            <p class="mt-4 leading-relaxed text-zinc-600">
-              {{ item.description }}
-            </p>
+          <div class="mt-14 grid gap-6 md:grid-cols-2">
+            <div
+              v-for="(item, index) in items"
+              :key="item.title"
+              class="rounded-[1.8rem] border border-zinc-200 bg-zinc-50/80 p-7 backdrop-blur"
+            >
+              <p
+                class="text-sm font-semibold uppercase tracking-[0.25em]"
+                :class="colors[Number(index) % colors.length]"
+              >
+                {{ item.metric }}
+              </p>
+
+              <h3 class="mt-4 text-2xl font-bold text-zinc-900">
+                {{ item.title }}
+              </h3>
+
+              <p class="mt-4 leading-relaxed text-zinc-600">
+                {{ item.description }}
+              </p>
+            </div>
           </div>
         </div>
       </section>

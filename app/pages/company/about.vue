@@ -1,17 +1,21 @@
 <script setup lang="ts">
 const api = usePublicApi()
 
-const { data: page } = await useAsyncData(
-  "company-about-page",
-  () => api.request<any>("/api/public/pages/about-us/")
-)
 
+const { data: page, pending, error } = await useAsyncData(
+  "public-page-about",
+  () => api.request<any>("/api/public/pages/about-us/"),
+  {
+    default: () => null,
+  }
+)
 const sections = computed(() => {
   return page.value?.sections ?? []
 })
 </script>
+
 <template>
-  <main v-if="page" class="relative min-h-screen overflow-hidden bg-white px-6 pt-36 pb-20 text-black">
+  <main class="relative min-h-screen overflow-hidden bg-white px-6 pt-36 pb-20 text-black">
     <!-- emerald glow -->
     <div
       class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_85%_20%,rgba(34,197,94,0.10),transparent_28%)]" />
@@ -32,19 +36,47 @@ const sections = computed(() => {
       <CompanySidebar />
 
       <div class="grid gap-16">
-        <section v-for="section in sections" :key="section.id" class="relative overflow-hidden px-10">
-          <h1 v-if="section.title"
-            class="mt-4 bg-gradient-to-r from-emerald-400 via-lime-300 to-cyan-400 bg-clip-text text-3xl font-black tracking-tight text-transparent md:text-4xl">
-            {{ section.title }}
-          </h1>
+        <!-- Loading -->
+        <div v-if="pending" class="px-10 text-zinc-500">
+          Loading...
+        </div>
 
-          <div v-if="section.content" v-html="section.content" />
+        <!-- Error -->
+        <div v-else-if="error" class="px-10 text-red-500">
+          Failed to load page.
+        </div>
 
-          <div v-if="section.image_url" class="mt-10 overflow-hidden rounded-[1rem] md:mt-14">
-            <img :src="section.image_url" :alt="section.image_alt || section.title"
-              class="aspect-[16/9] w-full object-cover md:h-[360px] md:aspect-auto" />
-          </div>
-        </section>
+        <!-- Content -->
+        <template v-else>
+          <section
+            v-for="section in sections"
+            :key="section.id"
+            class="relative overflow-hidden px-10"
+          >
+            <h1
+              v-if="section.title"
+              class="mt-4 bg-gradient-to-r from-emerald-400 via-lime-300 to-cyan-400 bg-clip-text text-3xl font-black tracking-tight text-transparent md:text-4xl"
+            >
+              {{ section.title }}
+            </h1>
+
+            <div
+              v-if="section.content"
+              v-html="section.content"
+            />
+
+            <div
+              v-if="section.image_url"
+              class="mt-10 overflow-hidden rounded-[1rem] md:mt-14"
+            >
+              <img
+                :src="section.image_url"
+                :alt="section.image_alt || section.title"
+                class="aspect-[16/9] w-full object-cover md:h-[360px] md:aspect-auto"
+              />
+            </div>
+          </section>
+        </template>
       </div>
     </div>
   </main>
