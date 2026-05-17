@@ -21,6 +21,12 @@ export default defineNuxtConfig({
 
   nitro: {
     compressPublicAssets: true,
+
+    routeRules: {
+      '/api/**': {
+        proxy: 'https://apps.portal.kawi-nickel.com/api/**',
+      },
+    },
   },
 
   routeRules: {
