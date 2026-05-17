@@ -3,19 +3,18 @@ const api = usePublicApi()
 
 const { data: page, pending, error } = await useAsyncData(
   "public-page-about-us",
-  () => api.request<any>(`/api/public/pages/about-us/?t=${Date.now()}`),
+  () => api.request<any>("/api/public/pages/about-us/"),
   {
-    default: () => null,
-    server: true,
-    lazy: false,
-    getCachedData: () => undefined,
+    default: () => ({
+      sections: []
+    }),
   }
 )
 
-const sections = computed(() => page.value?.sections ?? [])
+const sections = computed(() => {
+  return page.value?.sections ?? []
+})
 </script>
-
-
 
 <template>
   <main class="relative min-h-screen overflow-hidden bg-white px-6 pt-36 pb-20 text-black">
@@ -49,34 +48,24 @@ const sections = computed(() => page.value?.sections ?? [])
           Failed to load page.
         </div>
 
+        <!-- Empty -->
+        <div v-else-if="!sections.length" class="px-10 text-zinc-500">
+          No content available.
+        </div>
+
         <!-- Content -->
         <template v-else>
-          <section
-            v-for="section in sections"
-            :key="section.id"
-            class="relative overflow-hidden px-10"
-          >
-            <h1
-              v-if="section.title"
-              class="mt-4 bg-gradient-to-r from-emerald-400 via-lime-300 to-cyan-400 bg-clip-text text-3xl font-black tracking-tight text-transparent md:text-4xl"
-            >
+          <section v-for="section in sections" :key="section.id" class="relative overflow-hidden px-10">
+            <h1 v-if="section.title"
+              class="mt-4 bg-gradient-to-r from-emerald-400 via-lime-300 to-cyan-400 bg-clip-text text-3xl font-black tracking-tight text-transparent md:text-4xl">
               {{ section.title }}
             </h1>
 
-            <div
-              v-if="section.content"
-              v-html="section.content"
-            />
+            <div v-if="section.content" class="prose prose-zinc mt-6 max-w-none" v-html="section.content" />
 
-            <div
-              v-if="section.image_url"
-              class="mt-10 overflow-hidden rounded-[1rem] md:mt-14"
-            >
-              <img
-                :src="section.image_url"
-                :alt="section.image_alt || section.title"
-                class="aspect-[16/9] w-full object-cover md:h-[360px] md:aspect-auto"
-              />
+            <div v-if="section.image_url" class="mt-10 overflow-hidden rounded-[1rem] md:mt-14">
+              <img :src="section.image_url" :alt="section.image_alt || section.title"
+                class="aspect-[16/9] w-full object-cover md:h-[360px] md:aspect-auto">
             </div>
           </section>
         </template>
