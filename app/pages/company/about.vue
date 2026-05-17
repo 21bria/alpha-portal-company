@@ -1,19 +1,21 @@
 <script setup lang="ts">
 const api = usePublicApi()
 
-const { data: page, pending, error } = await useAsyncData(
-  "public-page-about-us",
-  () => api.request<any>("/api/public/pages/about-us/"),
-  {
-    default: () => ({
-      sections: []
-    }),
-  }
-)
+const page = ref<any>(null)
+const pending = ref(true)
+const error = ref<any>(null)
 
-const sections = computed(() => {
-  return page.value?.sections ?? []
+onMounted(async () => {
+  try {
+    page.value = await api.request<any>("/api/public/pages/about-us/")
+  } catch (err) {
+    error.value = err
+  } finally {
+    pending.value = false
+  }
 })
+
+const sections = computed(() => page.value?.sections ?? [])
 </script>
 
 <template>
