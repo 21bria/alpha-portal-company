@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const api = usePublicApi()
+const route = useRoute()
 
 type PublicProjectSection = {
     id: number
@@ -28,15 +29,17 @@ type PublicProject = {
 
 const { data: projects, pending, error } =
   await useAsyncData<PublicProject[]>(
-    "public-projects",
+    () => `public-projects-${route.fullPath}`,
     () =>
       api.request<PublicProject[]>(
         "/api/public/projects/"
       ),
     {
+      watch: [() => route.fullPath],
       default: () => [],
     }
   )
+  
 function getProjectImage(project: PublicProject) {
     return (
         project.cover_image_url ||
