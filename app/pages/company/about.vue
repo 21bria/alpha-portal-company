@@ -7,16 +7,22 @@ const error = ref<any>(null)
 
 onMounted(async () => {
   try {
-    page.value = await api.request<any>("/api/public/pages/about-us/")
+    page.value = await api.request<any>(
+      "/api/public/pages/about-us/"
+    )
   } catch (err) {
+    console.error(err)
     error.value = err
   } finally {
     pending.value = false
   }
 })
 
-const sections = computed(() => page.value?.sections ?? [])
+const sections = computed(() => {
+  return page.value?.sections ?? []
+})
 </script>
+
 
 <template>
   <main class="relative min-h-screen overflow-hidden bg-white px-6 pt-36 pb-20 text-black">
