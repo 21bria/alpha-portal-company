@@ -91,12 +91,12 @@
                                 group-hover:opacity-100
                                 ">
                             <div class="space-y-2">
-                                    <a
+                                <NuxtLink
                                         v-for="child in menu.children"
                                         :key="child.label"
-                                        :href="child.to"
+                                        :to="child.to"
                                         class="group/item flex items-center gap-4 rounded-2xl px-4 py-4 transition hover:bg-white/20"
-                                    >    
+                                        >
                                     <div
                                         class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.03] text-xl">
                                         {{ child.icon }}
@@ -115,7 +115,7 @@
                                    <div class="text-zinc-400 transition group-hover/item:translate-x-1 group-hover/item:text-amber-300">
                                     →
                                     </div>
-                                </a>
+                                </NuxtLink>
                             </div>
                         </div>
                     </div>

@@ -1,10 +1,12 @@
 <script setup lang="ts">
+const route = useRoute()
 const api = usePublicApi()
 
 const { data: page, pending, error } = await useAsyncData(
-  "public-home-page",
+  () => `public-home-page-${route.fullPath}`,
   () => api.request<any>("/api/public/home/"),
   {
+    watch: [() => route.fullPath],
     default: () => null,
   }
 )

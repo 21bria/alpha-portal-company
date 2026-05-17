@@ -1,3 +1,60 @@
+<script setup lang="ts">
+const api = usePublicApi()
+const route = useRoute()
+
+type PublicJobVacancy = {
+  id: number
+  title: string
+  slug: string
+  department: string
+  location: string
+  employment_type: string
+  summary: string
+  responsibilities: string[]
+  requirements: string[]
+  is_open: boolean
+  published_at?: string | null
+}
+
+const slug = computed(() => String(route.params.slug || ""))
+
+const { data: job, pending, error } =
+  await useAsyncData<PublicJobVacancy | null>(
+    () => `career-detail-${route.fullPath}`,
+    () => {
+      if (!slug.value) return Promise.resolve(null)
+
+      return api.request<PublicJobVacancy>(
+        `/api/public/careers/${slug.value}/`
+      )
+    },
+    {
+      watch: [() => route.fullPath],
+      default: () => null,
+    }
+  )
+  
+function formatDate(date?: string | null) {
+  if (!date) return "Latest Update"
+
+  return new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  })
+}
+
+useHead(() => ({
+  title: job.value?.title || "Career",
+  meta: [
+    {
+      name: "description",
+      content: job.value?.summary || "Career opportunity",
+    },
+  ],
+}))
+</script>
+
 <template>
   <section class="bg-white px-6 py-24 text-black">
     <div class="mx-auto max-w-5xl">
@@ -137,57 +194,3 @@
   </section>
 </template>
 
-<script setup lang="ts">
-
-const api = usePublicApi()
-type PublicJobVacancy = {
-  id: number
-  title: string
-  slug: string
-  department: string
-  location: string
-  employment_type: string
-  summary: string
-  responsibilities: string[]
-  requirements: string[]
-  is_open: boolean
-  published_at?: string | null
-}
-
-const route = useRoute()
-
-const slug = computed(() => String(route.params.slug || ""))
-
-const { data: job, pending, error } =
-  await useAsyncData<PublicJobVacancy | null>(
-    () => `career-${slug.value}`,
-    () =>
-      api.request<PublicJobVacancy>(
-        `/api/public/careers/${slug.value}/`
-      ),
-    {
-      watch: [slug],
-      default: () => null,
-    }
-  )
-  
-function formatDate(date?: string | null) {
-  if (!date) return "Latest Update"
-
-  return new Date(date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  })
-}
-
-useHead(() => ({
-  title: job.value?.title || "Career",
-  meta: [
-    {
-      name: "description",
-      content: job.value?.summary || "Career opportunity",
-    },
-  ],
-}))
-</script>

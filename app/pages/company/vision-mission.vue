@@ -1,10 +1,12 @@
 <script setup lang="ts">
 const api = usePublicApi()
+const route = useRoute()
 
 const { data: page, pending, error } = await useAsyncData(
-  "public-page-vision-mission",
+  () => `public-page-vision-mission-${route.fullPath}`,
   () => api.request<any>("/api/public/pages/vision-mission/"),
   {
+    watch: [() => route.fullPath],
     default: () => null,
   }
 )

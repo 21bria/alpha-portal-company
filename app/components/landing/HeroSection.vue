@@ -17,15 +17,20 @@ const lines = computed(() => {
   ]
 })
 </script>
-
 <template>
-    <section v-if="section" class="relative flex min-h-[86vh] items-center px-6 pt-32 pb-24 lg:pt-24 lg:pb-8">
-        <div
-            class="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(245,158,11,0.16),transparent_28%),radial-gradient(circle_at_70%_70%,rgba(34,211,238,0.10),transparent_28%),radial-gradient(circle_at_20%_20%,rgba(99,102,241,0.10),transparent_24%)]" />
-        <div
-            class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:90px_90px] opacity-40" />
+  <section class="relative flex min-h-[86vh] items-center px-6 pt-32 pb-24 lg:pt-24 lg:pb-8">
+    <div v-if="!section" class="mx-auto max-w-7xl text-zinc-500">
+      Loading...
+    </div>
 
-        <div class="relative mx-auto -mt-6 grid max-w-7xl items-center gap-10 lg:grid-cols-2">
+    <template v-else>
+      <div
+        class="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(245,158,11,0.16),transparent_28%),radial-gradient(circle_at_70%_70%,rgba(34,211,238,0.10),transparent_28%),radial-gradient(circle_at_20%_20%,rgba(99,102,241,0.10),transparent_24%)]" />
+
+      <div
+        class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:90px_90px] opacity-40" />
+
+          <div class="relative mx-auto -mt-6 grid max-w-7xl items-center gap-10 lg:grid-cols-2">
             <div>
                 <p v-if="section.data?.eyebrow"
                     class="mb-5 text-xs font-semibold uppercase tracking-[0.35em] text-amber-300">
@@ -101,5 +106,6 @@ const lines = computed(() => {
                     class="relative z-10 w-[360px] sm:w-[460px] lg:w-[620px] animate-float animate-spin-slow drop-shadow-[0_0_120px_rgba(245,158,11,0.45)]" />
             </div>
         </div>
-    </section>
+    </template>
+  </section>
 </template>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const api = usePublicApi()
+const route = useRoute()
 
 type NewsCategory = {
   id?: number
@@ -54,21 +55,25 @@ const categories = computed<NewsCategory[]>(() => [
 ])
 
 const { data, pending, error } = await useAsyncData(
-  "news-list",
   () =>
-    api.request<ApiList<PublicNews> | PublicNews[]>("/api/public/news/", {
-      query: {
-        page: page.value,
-        page_size: pageSize,
-        search: search.value,
-        category:
-          selectedCategory.value !== "all"
-            ? selectedCategory.value
-            : undefined,
-      },
-    }),
+    `news-list-${route.fullPath}-${page.value}-${selectedCategory.value}-${search.value}`,
+  () =>
+    api.request<ApiList<PublicNews> | PublicNews[]>(
+      "/api/public/news/",
+      {
+        query: {
+          page: page.value,
+          page_size: pageSize,
+          search: search.value,
+          category:
+            selectedCategory.value !== "all"
+              ? selectedCategory.value
+              : undefined,
+        },
+      }
+    ),
   {
-    watch: [page, search, selectedCategory],
+    watch: [page, search, selectedCategory, () => route.fullPath],
     default: () => ({
       count: 0,
       results: [],

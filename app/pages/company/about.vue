@@ -1,18 +1,21 @@
 <script setup lang="ts">
 const api = usePublicApi()
-
+const route = useRoute()
 
 const { data: page, pending, error } = await useAsyncData(
-  "public-page-about",
+  () => `public-page-about-${route.fullPath}`,
   () => api.request<any>("/api/public/pages/about-us/"),
   {
+    watch: [() => route.fullPath],
     default: () => null,
   }
 )
+
 const sections = computed(() => {
   return page.value?.sections ?? []
 })
 </script>
+
 
 <template>
   <main class="relative min-h-screen overflow-hidden bg-white px-6 pt-36 pb-20 text-black">

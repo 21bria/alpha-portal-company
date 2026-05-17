@@ -13,10 +13,7 @@ const cards = computed(() => {
 </script>
 
 <template>
-  <section
-    v-if="section"
-    class="relative overflow-hidden bg-black px-6 py-20 text-white"
-  >
+  <section class="relative overflow-hidden bg-black px-6 py-20 text-white">
     <div
       class="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(34,211,238,0.08),transparent_25%),radial-gradient(circle_at_80%_50%,rgba(245,158,11,0.10),transparent_30%)]"
     />
@@ -25,7 +22,11 @@ const cards = computed(() => {
       class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:80px_80px]"
     />
 
-    <div class="relative mx-auto max-w-7xl">
+    <div v-if="!section" class="relative mx-auto max-w-7xl text-zinc-500">
+      Loading...
+    </div>
+
+    <div v-else class="relative mx-auto max-w-7xl">
       <div class="grid items-center gap-16 lg:grid-cols-2">
         <div>
           <p
@@ -51,7 +52,7 @@ const cards = computed(() => {
           <div class="mt-10 flex flex-wrap gap-4">
             <NuxtLink
               v-if="section.data?.primary_button_text"
-              :to="section.data?.primary_button_url || '#'"
+              :to="section.data?.primary_button_url || '/'"
               class="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-6 py-3 text-sm font-semibold text-emerald-300 backdrop-blur transition hover:bg-emerald-400 hover:text-black"
             >
               {{ section.data.primary_button_text }}
@@ -59,7 +60,7 @@ const cards = computed(() => {
 
             <NuxtLink
               v-if="section.data?.secondary_button_text"
-              :to="section.data?.secondary_button_url || '#'"
+              :to="section.data?.secondary_button_url || '/'"
               class="rounded-full border border-white/10 bg-white/[0.03] px-6 py-3 text-sm font-semibold text-white transition hover:border-amber-300/30 hover:bg-white/[0.06]"
             >
               {{ section.data.secondary_button_text }}

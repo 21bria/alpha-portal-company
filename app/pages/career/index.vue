@@ -1,10 +1,12 @@
 <script setup lang="ts">
 const api = usePublicApi()
+const route = useRoute()
 
 const { data: page, pending, error } = await useAsyncData(
-  "public-career-page",
+  () => `public-career-page-${route.fullPath}`,
   () => api.request<any>("/api/public/pages/career/"),
   {
+    watch: [() => route.fullPath],
     default: () => null,
   }
 )
@@ -36,7 +38,7 @@ const benefits = computed(() => {
 })
 
 const { data: careersData } = await useAsyncData(
-  "public-careers",
+  () => `public-careers-${route.fullPath}`,
   () =>
     api.request<any>("/api/public/careers/", {
       query: {
@@ -44,6 +46,7 @@ const { data: careersData } = await useAsyncData(
       },
     }),
   {
+    watch: [() => route.fullPath],
     default: () => ({
       results: [],
     }),
@@ -109,13 +112,13 @@ onUnmounted(() => {
             </p>
 
             <div class="mt-10 flex flex-wrap gap-4">
-              <a
+              <NuxtLink
                 v-if="hero?.data?.primary_button_text"
-                :href="hero?.data?.primary_button_url || '#positions'"
+                :to="hero?.data?.primary_button_url || '#positions'"
                 class="rounded-full bg-zinc-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-amber-500"
               >
                 {{ hero.data.primary_button_text }}
-              </a>
+              </NuxtLink>
 
               <NuxtLink
                 v-if="hero?.data?.secondary_button_text"
