@@ -5,18 +5,22 @@ defineProps<{
 </script>
 
 <template>
-  <section class="relative px-6 pt-10 pb-20 lg:-mt-35 lg:pb-20">
-    <div v-if="!section" class="mx-auto max-w-7xl py-10 text-zinc-500">
-      Loading...
-    </div>
-
-    <div v-else class="mx-auto grid max-w-7xl gap-16 lg:grid-cols-2">
+  <section
+    v-if="section"
+    class="relative px-6 pt-10 pb-20 lg:-mt-35 lg:pb-20"
+  >
+    <div class="mx-auto grid max-w-7xl gap-16 lg:grid-cols-2">
       <div>
-        <p v-if="section.data?.eyebrow" class="text-sm font-bold uppercase tracking-[0.35em] text-white">
+        <p
+          v-if="section.data?.eyebrow"
+          class="text-sm font-bold uppercase tracking-[0.35em] text-white"
+        >
           {{ section.data.eyebrow }}
         </p>
 
-        <h2 class="mt-10 max-w-3xl text-4xl font-light leading-tight text-white md:text-5xl">
+        <h2
+          class="mt-10 max-w-3xl text-4xl font-light leading-tight text-white md:text-5xl"
+        >
           {{ section.title }}
         </h2>
       </div>
@@ -27,8 +31,11 @@ defineProps<{
             {{ section.subtitle }}
           </p>
 
-          <NuxtLink v-if="section.data?.primary_button_text" :to="section.data?.primary_button_url || '/'"
-            class="mt-12 inline-flex items-center gap-3 text-sm font-bold uppercase tracking-[0.2em] text-teal-500 transition hover:text-teal-600">
+          <NuxtLink
+            v-if="section.data?.primary_button_text"
+            :to="section.data?.primary_button_url || '/'"
+            class="mt-12 inline-flex items-center gap-3 text-sm font-bold uppercase tracking-[0.2em] text-teal-500 transition hover:text-teal-600"
+          >
             {{ section.data.primary_button_text }}
             <span>»</span>
           </NuxtLink>

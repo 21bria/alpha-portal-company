@@ -13,7 +13,10 @@ const cards = computed(() => {
 </script>
 
 <template>
-  <section class="relative overflow-hidden bg-black px-6 py-20 text-white">
+  <section
+    v-if="section"
+    class="relative overflow-hidden bg-black px-6 py-20 text-white"
+  >
     <div
       class="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(34,211,238,0.08),transparent_25%),radial-gradient(circle_at_80%_50%,rgba(245,158,11,0.10),transparent_30%)]"
     />
@@ -22,11 +25,7 @@ const cards = computed(() => {
       class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:80px_80px]"
     />
 
-    <div v-if="!section" class="relative mx-auto max-w-7xl text-zinc-500">
-      Loading...
-    </div>
-
-    <div v-else class="relative mx-auto max-w-7xl">
+    <div class="relative mx-auto max-w-7xl">
       <div class="grid items-center gap-16 lg:grid-cols-2">
         <div>
           <p

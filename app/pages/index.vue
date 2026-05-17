@@ -1,41 +1,43 @@
 <script setup lang="ts">
 const api = usePublicApi()
 
-const { data: page } = await useAsyncData(
+const { data: page, pending, error } = await useAsyncData(
   "home-page",
-  () => api.request<any>("/api/public/home/")
+  () => api.request<any>("/api/public/home/"),
+  {
+    default: () => null,
+  }
 )
 
 function getSection(type: string) {
   return page.value?.sections?.find(
-    (s: any) => s.section_type === type
-  )
+    (s: any) => s.section_type === type || s.type === type
+  ) ?? null
 }
 </script>
 
 <template>
   <main class="min-h-screen overflow-hidden bg-black text-white">
-    <LandingHeroSection
-      :section="getSection('hero')"
-    />
+    <div v-if="pending" class="flex min-h-screen items-center justify-center text-white/60">
+      Loading...
+    </div>
 
-    <LandingAboutSection
-      :section="getSection('split_content')"
-    />
+    <div v-else-if="error" class="flex min-h-screen items-center justify-center text-red-400">
+      Failed to load page.
+    </div>
 
-    <LandingOperationalSection
-      :section="getSection('cards')"
-    />
+    <template v-else>
+      <LandingHeroSection :section="getSection('hero')" />
 
-    <LandingSustainabilitySection
-      :section="getSection('landing_feature')"
-    />
-    <LandingNewsSection />
-    <LandingProjectMapSection
-      :section="getSection('project_location')"
-    />
+      <LandingAboutSection :section="getSection('split_content')" />
 
+      <LandingOperationalSection :section="getSection('cards')" />
 
+      <LandingSustainabilitySection :section="getSection('landing_feature')" />
+
+      <LandingNewsSection />
+
+      <LandingProjectMapSection :section="getSection('project_location')" />
+    </template>
   </main>
 </template>
-

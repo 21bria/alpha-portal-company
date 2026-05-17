@@ -1,23 +1,27 @@
 <script setup lang="ts">
 const props = defineProps<{
-    section?: any
+  section?: any
 }>()
 
 const items = computed(() => {
-    return props.section?.data?.items ?? []
+  return props.section?.data?.items ?? []
 })
 </script>
 
 <template>
-  <section class="relative overflow-hidden bg-zinc-100 px-6 py-20 pb-26 text-black">
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(245,158,11,0.08),transparent_28%)]" />
+  <section
+    v-if="section"
+    class="relative overflow-hidden bg-zinc-100 px-6 py-20 pb-26 text-black"
+  >
+    <div
+      class="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(245,158,11,0.08),transparent_28%)]"
+    />
 
-    <div v-if="!section" class="relative mx-auto max-w-7xl text-zinc-500">
-      Loading...
-    </div>
-
-    <div v-else class="relative mx-auto max-w-7xl">
-      <p v-if="section.data?.eyebrow" class="text-xs font-semibold uppercase tracking-[0.35em] text-amber-700">
+    <div class="relative mx-auto max-w-7xl">
+      <p
+        v-if="section.data?.eyebrow"
+        class="text-xs font-semibold uppercase tracking-[0.35em] text-amber-700"
+      >
         {{ section.data.eyebrow }}
       </p>
 
@@ -25,7 +29,10 @@ const items = computed(() => {
         {{ section.title }}
       </h2>
 
-      <p v-if="section.subtitle" class="mt-4 max-w-2xl text-base leading-relaxed text-zinc-600">
+      <p
+        v-if="section.subtitle"
+        class="mt-4 max-w-2xl text-base leading-relaxed text-zinc-600"
+      >
         {{ section.subtitle }}
       </p>
 
@@ -52,7 +59,9 @@ const items = computed(() => {
               </p>
             </div>
 
-            <h3 class="mt-10 text-2xl font-bold leading-tight text-white transition group-hover:text-amber-200">
+            <h3
+              class="mt-10 text-2xl font-bold leading-tight text-white transition group-hover:text-amber-200"
+            >
               {{ item.title }}
             </h3>
 
