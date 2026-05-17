@@ -216,6 +216,8 @@
 </template>
 
 <script setup lang="ts">
+const api = usePublicApi()
+
 const mobileOpen = ref(false)
 const openedMenu = ref('')
 const isScrolled = ref(false)
@@ -232,6 +234,7 @@ function setLanguage(lang: "id" | "en") {
 
   window.location.href = url
 }
+
 const whiteNavbarRoutes = [
     '/news',
     '/career',
@@ -253,12 +256,15 @@ type CompanyProfile = {
   white_logo_url?: string | null
 }
 
-const config = useRuntimeConfig()
 
-const { data: company } = await useFetch<CompanyProfile>(
-  `${config.public.apiBaseUrl}/api/public/company-profile/`,
+const { data: company } = await useAsyncData<CompanyProfile | null>(
+  "public-company-profile",
+  () =>
+    api.request<CompanyProfile>(
+      "/api/public/company-profile/"
+    ),
   {
-    default: () => ({}),
+    default: () => null,
   }
 )
 

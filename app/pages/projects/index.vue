@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const api = usePublicApi()
+
 type PublicProjectSection = {
     id: number
     section_type: string
@@ -24,15 +26,17 @@ type PublicProject = {
     sections?: PublicProjectSection[]
 }
 
-const config = useRuntimeConfig()
-
-const { data: projects, pending, error } = await useFetch<PublicProject[]>(
-    `${config.public.apiBaseUrl}/api/public/projects/`,
+const { data: projects, pending, error } =
+  await useAsyncData<PublicProject[]>(
+    "public-projects",
+    () =>
+      api.request<PublicProject[]>(
+        "/api/public/projects/"
+      ),
     {
-        default: () => [],
+      default: () => [],
     }
-)
-
+  )
 function getProjectImage(project: PublicProject) {
     return (
         project.cover_image_url ||

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+const api = usePublicApi()
 
 type NewsCategory = {
   id?: number
@@ -39,11 +39,10 @@ const search = ref("")
 const page = ref(1)
 const pageSize = 9
 
-const { data: categoriesData } = await useFetch<NewsCategory[]>(
-  `${config.public.apiBaseUrl}/api/public/news/categories/`,
-  {
-    default: () => [],
-  }
+
+const { data: categoriesData } = await useAsyncData(
+  "news-categories",
+  () => api.request<NewsCategory[]>("/api/public/news/categories/")
 )
 
 const categories = computed<NewsCategory[]>(() => [
@@ -54,17 +53,21 @@ const categories = computed<NewsCategory[]>(() => [
   ...(categoriesData.value || []),
 ])
 
-const { data, pending, error } = await useFetch<ApiList<PublicNews> | PublicNews[]>(
-  () => `${config.public.apiBaseUrl}/api/public/news/`,
+const { data, pending, error } = await useAsyncData(
+  "news-list",
+  () =>
+    api.request<ApiList<PublicNews> | PublicNews[]>("/api/public/news/", {
+      query: {
+        page: page.value,
+        page_size: pageSize,
+        search: search.value,
+        category:
+          selectedCategory.value !== "all"
+            ? selectedCategory.value
+            : undefined,
+      },
+    }),
   {
-    query: {
-      page,
-      page_size: pageSize,
-      search,
-      category: computed(() =>
-        selectedCategory.value !== "all" ? selectedCategory.value : undefined
-      ),
-    },
     watch: [page, search, selectedCategory],
   }
 )

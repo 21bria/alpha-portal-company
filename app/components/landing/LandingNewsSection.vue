@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const api = usePublicApi()
+
 type NewsCategory = {
     id: number
     name: string
@@ -21,18 +23,24 @@ type ApiList<T> = {
     results: T[]
 }
 
-const config = useRuntimeConfig()
-
-const { data: newsData, pending } = await useFetch<ApiList<PublicNews>>(
-    `${config.public.apiBaseUrl}/api/public/news/?page_size=3`,
-    {
-        default: () => ({
-            count: 0,
-            results: [],
-        }),
-    }
+const { data: newsData, pending } = await useAsyncData(
+  "public-news-home",
+  () =>
+    api.request<ApiList<PublicNews>>(
+      "/api/public/news/",
+      {
+        query: {
+          page_size: 3
+        }
+      }
+    ),
+  {
+    default: () => ({
+      count: 0,
+      results: [],
+    }),
+  }
 )
-
 const newsItems = computed(() => {
     return newsData.value?.results || []
 })

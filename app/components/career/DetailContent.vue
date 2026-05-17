@@ -138,6 +138,8 @@
 </template>
 
 <script setup lang="ts">
+
+const api = usePublicApi()
 type PublicJobVacancy = {
   id: number
   title: string
@@ -153,17 +155,20 @@ type PublicJobVacancy = {
 }
 
 const route = useRoute()
-const config = useRuntimeConfig()
 
 const slug = computed(() => String(route.params.slug || ""))
 
-const { data: job, pending, error } = await useFetch<PublicJobVacancy>(
-  () => `${config.public.apiBaseUrl}/api/public/careers/${slug.value}/`,
-  {
-    watch: [slug],
-  }
-)
-
+const { data: job, pending, error } =
+  await useAsyncData(
+    `career-${slug.value}`,
+    () =>
+      api.request<PublicJobVacancy>(
+        `/api/public/careers/${slug.value}/`
+      ),
+    {
+      watch: [slug]
+    }
+  )
 function formatDate(date?: string | null) {
   if (!date) return "Latest Update"
 

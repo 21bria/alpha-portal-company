@@ -1,4 +1,7 @@
 <script setup lang="ts">
+
+const api = usePublicApi()
+
 import { Linkedin, Youtube, Instagram, Twitter } from "lucide-vue-next"
 const currentYear = new Date().getFullYear()
 
@@ -23,13 +26,13 @@ type CompanyProfile = {
     designer_url?: string
 }
 
-const config = useRuntimeConfig()
 
-const { data: company } = await useFetch<CompanyProfile>(
-    `${config.public.apiBaseUrl}/api/public/company-profile/`,
-    {
-        default: () => ({}),
-    }
+const { data: company } = await useAsyncData<CompanyProfile | null>(
+  "public-company-profile",
+  () => api.request<CompanyProfile>("/api/public/company-profile/"),
+  {
+    default: () => null,
+  }
 )
 
 const addressLines = computed(() =>

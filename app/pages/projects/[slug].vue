@@ -1,4 +1,7 @@
 <script setup lang="ts">
+const api = usePublicApi()
+const route = useRoute()
+
 type ProjectBullet = {
   title: string
   description?: string
@@ -46,17 +49,20 @@ type PublicProject = {
   sections?: PublicProjectSection[]
 }
 
-const route = useRoute()
-const config = useRuntimeConfig()
-
 const slug = computed(() => String(route.params.slug || ""))
 
-const { data: project, pending, error } = await useFetch<PublicProject>(
-  () => `${config.public.apiBaseUrl}/api/public/projects/${slug.value}/`,
-  {
-    watch: [slug],
-  }
-)
+const { data: project, pending, error } =
+  await useAsyncData<PublicProject | null>(
+    () => `public-project-${slug.value}`,
+    () =>
+      api.request<PublicProject>(
+        `/api/public/projects/${slug.value}/`
+      ),
+    {
+      watch: [slug],
+      default: () => null,
+    }
+  )
 
 const mainSection = computed(() => {
   return project.value?.sections?.[0] || null

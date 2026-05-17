@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const api = usePublicApi()
+
 type NewsCategory = {
   id?: number
   name: string
@@ -49,10 +51,15 @@ const search = ref(String(route.query.search || ""))
 const topic = computed(() => String(route.params.topic || ""))
 
 const { data: currentTopic, pending: topicPending, error: topicError } =
-  await useFetch<NewsTopic>(
-    () => `${config.public.apiBaseUrl}/api/public/news/topics/${topic.value}/`,
+  await useAsyncData<NewsTopic | null>(
+    () => `public-news-topic-${topic.value}`,
+    () =>
+      api.request<NewsTopic>(
+        `/api/public/news/topics/${topic.value}/`
+      ),
     {
       watch: [topic],
+      default: () => null,
     }
   )
 
@@ -65,18 +72,22 @@ const topicTagSlugs = computed(() => {
   )
 })
 
-const { data, pending, error } = await useFetch<ApiList<PublicNews> | PublicNews[]>(
-  () => `${config.public.apiBaseUrl}/api/public/news/`,
+const { data, pending, error } = await useAsyncData<ApiList<PublicNews> | PublicNews[]>(
+  "public-news-topic-list",
+  () =>
+    api.request<ApiList<PublicNews> | PublicNews[]>(
+      "/api/public/news/",
+      {
+        query: {
+          page: page.value,
+          page_size: pageSize,
+          search: search.value,
+          category: currentTopic.value?.category_detail?.slug,
+          tags: topicTagSlugs.value || undefined,
+        },
+      }
+    ),
   {
-    query: {
-      page,
-      page_size: pageSize,
-      search,
-
-      category: computed(() => currentTopic.value?.category_detail?.slug),
-
-      tags: computed(() => topicTagSlugs.value || undefined),
-    },
     watch: [page, search, topic, currentTopic],
   }
 )
