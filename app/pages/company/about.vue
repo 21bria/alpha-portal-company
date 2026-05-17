@@ -7,25 +7,19 @@ const error = ref<any>(null)
 
 onMounted(async () => {
   try {
-    page.value = await api.request<any>(
-      "/api/public/pages/about-us/"
-    )
+    page.value = await api.request<any>("/api/public/pages/about-us/")
   } catch (err) {
-    console.error(err)
     error.value = err
+    console.error("About API error:", err)
   } finally {
     pending.value = false
   }
 })
 
-const sections = computed(() => {
-  return page.value?.sections ?? []
-})
+const sections = computed(() => page.value?.sections ?? [])
 </script>
-
-
 <template>
-  <main class="relative min-h-screen overflow-hidden bg-white px-6 pt-36 pb-20 text-black">
+  <main v-if="page" class="relative min-h-screen overflow-hidden bg-white px-6 pt-36 pb-20 text-black">
     <!-- emerald glow -->
     <div
       class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_85%_20%,rgba(34,197,94,0.10),transparent_28%)]" />
@@ -46,37 +40,19 @@ const sections = computed(() => {
       <CompanySidebar />
 
       <div class="grid gap-16">
-        <!-- Loading -->
-        <div v-if="pending" class="px-10 text-zinc-500">
-          Loading...
-        </div>
+        <section v-for="section in sections" :key="section.id" class="relative overflow-hidden px-10">
+          <h1 v-if="section.title"
+            class="mt-4 bg-gradient-to-r from-emerald-400 via-lime-300 to-cyan-400 bg-clip-text text-3xl font-black tracking-tight text-transparent md:text-4xl">
+            {{ section.title }}
+          </h1>
 
-        <!-- Error -->
-        <div v-else-if="error" class="px-10 text-red-500">
-          Failed to load page.
-        </div>
+          <div v-if="section.content" v-html="section.content" />
 
-        <!-- Empty -->
-        <div v-else-if="!sections.length" class="px-10 text-zinc-500">
-          No content available.
-        </div>
-
-        <!-- Content -->
-        <template v-else>
-          <section v-for="section in sections" :key="section.id" class="relative overflow-hidden px-10">
-            <h1 v-if="section.title"
-              class="mt-4 bg-gradient-to-r from-emerald-400 via-lime-300 to-cyan-400 bg-clip-text text-3xl font-black tracking-tight text-transparent md:text-4xl">
-              {{ section.title }}
-            </h1>
-
-            <div v-if="section.content" class="prose prose-zinc mt-6 max-w-none" v-html="section.content" />
-
-            <div v-if="section.image_url" class="mt-10 overflow-hidden rounded-[1rem] md:mt-14">
-              <img :src="section.image_url" :alt="section.image_alt || section.title"
-                class="aspect-[16/9] w-full object-cover md:h-[360px] md:aspect-auto">
-            </div>
-          </section>
-        </template>
+          <div v-if="section.image_url" class="mt-10 overflow-hidden rounded-[1rem] md:mt-14">
+            <img :src="section.image_url" :alt="section.image_alt || section.title"
+              class="aspect-[16/9] w-full object-cover md:h-[360px] md:aspect-auto" />
+          </div>
+        </section>
       </div>
     </div>
   </main>
