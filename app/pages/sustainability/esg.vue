@@ -47,7 +47,8 @@ const { data: newsData } = await useAsyncData(
   "esg-latest-news",
   () =>
     api.request<NewsListResponse>(
-      "/api/public/news/?category=sustainability&page_size=3"
+      // "/api/public/news/?category=sustainability&page_size=3"
+      "/api/public/news/?category=sustainability&tag=esg&page_size=3"
     )
 )
 
@@ -137,7 +138,7 @@ function getNewsImage(item: NewsItem) {
         </div>
 
         <!-- News -->
-         <div v-if="latestNews.length" class="mt-24">
+        <div v-if="latestNews.length" class="mt-24">
             <div class="mb-10 flex items-end justify-between gap-6">
               <div>
                 <p class="text-xs font-semibold uppercase tracking-[0.35em] text-amber-600">
@@ -198,7 +199,8 @@ function getNewsImage(item: NewsItem) {
                 </div>
               </NuxtLink>
             </div>
-          </div>
+        </div>
+
       </section>
     </div>
   </main>
