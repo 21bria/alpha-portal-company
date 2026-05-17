@@ -1,15 +1,9 @@
 <script setup lang="ts">
 const api = usePublicApi()
 
-const { data: page, pending, error } = await useAsyncData(
-  "public-home-page",
-  () => api.request<any>("/api/public/home/"),
-  {
-    default: () => null,
-    server: true,
-    lazy: false,
-    getCachedData: () => undefined,
-  }
+const { data: page } = await useAsyncData(
+  "home-page",
+  () => api.request<any>("/api/public/home/")
 )
 
 function getSection(type: string) {
