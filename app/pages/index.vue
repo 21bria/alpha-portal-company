@@ -2,12 +2,18 @@
 const route = useRoute()
 const api = usePublicApi()
 
-const { data: page, pending, error } = await useAsyncData(
-  () => `public-home-page-${route.fullPath}`,
+const { data: page, pending, error, refresh } = await useAsyncData(
+  "public-home-page",
   () => api.request<any>("/api/public/home/"),
   {
-    watch: [() => route.fullPath],
     default: () => null,
+  }
+)
+
+watch(
+  () => route.fullPath,
+  async () => {
+    await refresh()
   }
 )
 
