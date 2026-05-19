@@ -121,7 +121,7 @@ function getNewsImage(item: PublicNews) {
 </script>
 
 <template>
-   <main  class="relative min-h-screen overflow-hidden bg-white pt-10 pb-0 text-black">
+   <main  class="relative min-h-screen overflow-hidden bg-white pt-21 pb-0 text-black">
     <LandingHeader light />
     <NewsHero />
 
